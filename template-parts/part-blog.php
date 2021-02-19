@@ -7,14 +7,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <div class="blog-entry">
-                    <a href="post.html" class="blog-img"><img src="<?php echo $Pass ?>/assets/images/600x400.jpg" class="img-fluid" alt=""></a>
-                    <div class="desc"> <span><a href="#">Makeup</a></span>
-                        <h4><a href="post.html">Top 5 Benefits of Body Polishing</a></h4> <span class="text-right"><a href="#">Dec 30, 2021</a></span>
+            <?php
+            $args = array(
+                'post_type' => 'blog', //投稿記事
+                'posts_per_page' => 3, //記事数
+            );
+            $the_query = new WP_Query($args);
+            ?>
+            <?php if ($the_query->have_posts()) : ?>
+                <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                    <div class="col-md-4">
+                        <div class="blog-entry">
+                            <a href="post.html" class="blog-img"><img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid" alt=""></a>
+                            <div class="desc"> <span><a href="#"><?php the_category(); ?></a></span>
+                                <h4><a href="post.html"><?php the_title(); ?></a></h4> <span class="text-right"><a href="#"><?php echo get_post_time("M j, Y") ?></a></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
+            <?php endif; ?>
             <div class="col-md-4">
                 <div class="blog-entry">
                     <a href="post.html" class="blog-img"><img src="<?php echo $Pass ?>/assets/images/600x400.jpg" class="img-fluid" alt=""></a>
@@ -23,14 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="blog-entry">
-                    <a href="post.html" class="blog-img"><img src="<?php echo $Pass ?>/assets/images/600x400.jpg" class="img-fluid" alt=""></a>
-                    <div class="desc"> <span><a href="#">Barber</a></span>
-                        <h4><a href="post.html">Trending Hairstyles For Men in 2021</a></h4> <span class="text-right"><a href="#">Dec 20, 2021</a></span>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
